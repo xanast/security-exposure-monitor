@@ -212,6 +212,9 @@ Possible future improvements include:
 - CI integration for automated scans
 
 ---
+## Dashboard Preview
+
+![Security Exposure Monitor Dashboard](assets/dashboard.png)
 
 ## Author
 
