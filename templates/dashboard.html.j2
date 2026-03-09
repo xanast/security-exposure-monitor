@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Exposure Monitor Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #0f1115;
+            color: #f5f7fa;
+        }
+        .card {
+            background: #171a21;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .muted {
+            color: #b8c0cc;
+        }
+        .badge {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: #262b36;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+        pre {
+            background: #0b0d12;
+            padding: 12px;
+            border-radius: 10px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        h1, h2, h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Security Exposure Monitor</h1>
+        <p><strong>Target:</strong> {{ report.target }}</p>
+        <p><strong>Final URL:</strong> {{ report.final_url }}</p>
+        <p><strong>Score:</strong> {{ report.summary.score }}/100</p>
+        <p><strong>Risk Level:</strong> {{ report.summary.risk_level }}</p>
+    </div>
+
+    <div class="card">
+        <h2>Headers</h2>
+        <h3>Present</h3>
+        {% for item in report.headers.present %}
+            <span class="badge">{{ item }}</span>
+        {% endfor %}
+        <h3 style="margin-top:16px;">Missing</h3>
+        {% for item in report.headers.missing %}
+            <span class="badge">{{ item }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="card">
+        <h2>Cookies</h2>
+        <p>Total: {{ report.cookies.summary.total }}</p>
+        <p>Missing Secure: {{ report.cookies.summary.missing_secure }}</p>
+        <p>Missing HttpOnly: {{ report.cookies.summary.missing_httponly }}</p>
+        <p>Missing SameSite: {{ report.cookies.summary.missing_samesite }}</p>
+    </div>
+
+    <div class="card">
+        <h2>Redirects</h2>
+        <p>Redirected: {{ report.redirects.redirected }}</p>
+        <p>Hop Count: {{ report.redirects.hop_count }}</p>
+        <p>HTTP to HTTPS: {{ report.redirects.http_to_https }}</p>
+        <pre>{{ report.redirects }}</pre>
+    </div>
+
+    <div class="card">
+        <h2>Robots.txt</h2>
+        <pre>{{ report.robots }}</pre>
+    </div>
+
+    <div class="card">
+        <h2>Sitemap</h2>
+        <pre>{{ report.sitemap }}</pre>
+    </div>
+
+    <div class="card">
+        <h2>TLS</h2>
+        <pre>{{ report.tls }}</pre>
+    </div>
+</body>
+</html>
